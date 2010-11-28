@@ -15,8 +15,8 @@
       if( count($args) < 1 ){
         throw new Dispatcher_Exception_Construction("Need to pass one or more parameters to constructor for dispatcher");
       }
-      foreach ( $args as $i => &$v ){ 
-        if( !is_object( $v ) ){ 
+      foreach ( $args as $i => &$v ){
+        if( !is_object( $v ) ){
           throw new Dispatcher_Exception_Construction("Got something that is not an object for argument $i");
         }
         if( !( $v instanceof Dispatcher_Rule ) ){
@@ -34,10 +34,10 @@
     }
 
     public function get_action_for( $request = '' ){
-      foreach( $this->rules as $i => &$v ){ 
+      foreach( $this->rules as $i => &$v ){
         if (  $v->matches( $request ) ){
           $result = $v->action( $request );
-          if( !( $result instanceof Dispatcher_Action ) ){ 
+          if( !( $result instanceof Dispatcher_Action ) ){
             throw new Dispatcher_Exception_Dispatch("Returned from Dispatcher_Rule->action() was not a Dispatcher_Action");
           }
           return $result;

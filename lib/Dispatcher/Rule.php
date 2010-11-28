@@ -1,6 +1,6 @@
 <?php
 
-interface Dispatcher_Rule { 
+interface Dispatcher_Rule {
 
   public function set_dispatcher( Dispatcher &$d );
   public function matches( $string );
