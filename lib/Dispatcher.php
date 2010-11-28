@@ -22,7 +22,7 @@
         if( !( $v instanceof Dispatcher_Rule ) ){
           throw new Dispatcher_Exception_Construction("Got something that is not a Dispatcher_Rule for argument $i");
         }
-        array_push( $this->rules , $v );
+        $this->add_rule( $v );
       }
       return $this;
     }

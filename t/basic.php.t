@@ -46,7 +46,11 @@ try {
     $t->fail("Not the exception we were looking for $e");
 }
 
-class TEST_MyFakeClass_B implements Dispatcher_Rule { }
+class TEST_MyFakeClass_B implements Dispatcher_Rule {
+    public function matches( $string ){
+        return  false;
+    }
+}
 
 try {
     $dispatcher = new Dispatcher( new TEST_MyFakeClass_B() );
@@ -54,5 +58,20 @@ try {
 } catch ( Exception $e ){
     $t->fail("Dispatcher is supposed to not fail");
 }
+
+try {
+    $dispatcher = new Dispatcher( new TEST_MyFakeClass_B() );
+    $dispatcher->add_rule( new TEST_MyFakeClass_B() );
+    $dispatcher->get_action_for('');
+    $t->fail("Dispatcher is supposed to throw an exception with missing dispatch");
+
+} catch ( Dispatcher_Exception_Dispatch $e ){
+    $t->pass("Dispatcher is supposed to throw an exception with missing dispatch");
+    $t->like($e->getMessage(),
+        '/No dispatch rule matched/',
+        'Right error for failure'
+    );
+}
+
 
 $t->done_testing();
