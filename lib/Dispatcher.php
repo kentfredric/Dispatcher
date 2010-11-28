@@ -8,6 +8,7 @@
 
     private $rules;
 
+
     public function __construct(){
       $args = func_get_args();
       $this->rules = array();
@@ -29,19 +30,24 @@
 
     public function add_rule( Dispatcher_Rule &$rule ){
       $rule->set_dispatcher( $this );
-      array_push( $this->rules, $rule );
+      $record = new stdClass();
+      $record->rule = &$rule;
+      array_push( $this->rules, $record );
       return $this;
     }
 
     public function get_action_for( $request = '' ){
       foreach( $this->rules as $i => &$v ){
-        if (  $v->matches( $request ) ){
-          $result = $v->action( $request );
-          if( !( $result instanceof Dispatcher_Action ) ){
-            throw new Dispatcher_Exception_Dispatch("Returned from Dispatcher_Rule->action() was not a Dispatcher_Action");
-          }
+        if (! $v->rule->matches( $request ) ){
+          continue;
+        }
+        $result = $v->rule->action( $request );
+        if( $result instanceof Dispatcher_Action ){ 
           return $result;
         }
+        throw new Dispatcher_Exception_Dispatch(
+          "Returned from Dispatcher_Rule->action() was not a Dispatcher_Action"
+        );
       }
       throw new Dispatcher_Exception_Dispatch("No dispatch rule matched the request. Did you specify a default?");
     }
