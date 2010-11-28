@@ -25,11 +25,34 @@ try {
     $t->pass("Dispatcher is supposed to throw an exception with non-objects");
     $t->like($e->getMessage(),
         '/Got something that is not an object/',
-        'Right error for bnon-objects'
+        'Right error for non-objects'
     );
 } catch ( Exception $e ){
     $t->fail("Not the exception we were looking for $e");
 }
 
+class TEST_MyFakeClass { }
+
+try {
+    $dispatcher = new Dispatcher( new TEST_MyFakeClass() );
+    $t->fail("Dispatcher is supposed to throw an exception with wrong classes");
+} catch ( Dispatcher_Exception_Construction $e ){
+    $t->pass("Dispatcher is supposed to throw an exception with wrong classes");
+    $t->like($e->getMessage(),
+        '/Got something that is not a Dispatcher_Rule/',
+        'Right error for non-rules'
+    );
+} catch ( Exception $e ){
+    $t->fail("Not the exception we were looking for $e");
+}
+
+class TEST_MyFakeClass_B implements Dispatcher_Rule { }
+
+try {
+    $dispatcher = new Dispatcher( new TEST_MyFakeClass_B() );
+    $t->pass("Dispatcher is supposed to not fail");
+} catch ( Exception $e ){
+    $t->fail("Dispatcher is supposed to not fail");
+}
 
 $t->done_testing();
