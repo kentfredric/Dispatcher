@@ -33,10 +33,14 @@
       return $this;
     }
 
-    public function &get_action_for( $request = '' ){
+    public function get_action_for( $request = '' ){
       foreach( $this->rules as $i => &$v ){ 
         if (  $v->matches( $request ) ){
-          return $v->action( $request );
+          $result = $v->action( $request );
+          if( !( $result instanceof Dispatcher_Action ) ){ 
+            throw new Dispatcher_Exception_Dispatch("Returned from Dispatcher_Rule->action() was not a Dispatcher_Action");
+          }
+          return $result;
         }
       }
       throw new Dispatcher_Exception_Dispatch("No dispatch rule matched the request. Did you specify a default?");

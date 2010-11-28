@@ -15,7 +15,8 @@ try {
         'Right error for missing args'
     );
 } catch ( Exception $e ){
-    $t->fail("Not the exception we were looking for $e");
+    $t->fail("Not the exception we were looking for.");
+    $t->diag_exception( $e );
 }
 
 try {
@@ -28,7 +29,8 @@ try {
         'Right error for non-objects'
     );
 } catch ( Exception $e ){
-    $t->fail("Not the exception we were looking for $e");
+    $t->fail("Not the exception we were looking for.");
+    $t->diag_exception( $e );
 }
 
 class TEST_MyFakeClass { }
@@ -43,7 +45,8 @@ try {
         'Right error for non-rules'
     );
 } catch ( Exception $e ){
-    $t->fail("Not the exception we were looking for $e");
+    $t->fail("Not the exception we were looking for.");
+    $t->diag_exception( $e );
 }
 
 class TEST_MyFakeClass_B implements Dispatcher_Rule {
@@ -59,11 +62,31 @@ class TEST_MyFakeClass_B implements Dispatcher_Rule {
     }
 }
 
+class TEST_Action implements Dispatcher_Action {
+    public function perform(){
+        global $stuff;
+        $stuff = 1;
+    }
+}
+
+class TEST_MyFakeClass_C implements Dispatcher_Rule {
+    private $dispatcher;
+    public function set_dispatcher( Dispatcher &$d ){
+        $this->dispatcher = &$d;
+    }
+    public function matches( $string ){
+        return true;
+    }
+    public function action( $string ){
+        return new TEST_Action();
+    }
+}
 try {
     $dispatcher = new Dispatcher( new TEST_MyFakeClass_B() );
     $t->pass("Dispatcher is supposed to not fail");
 } catch ( Exception $e ){
     $t->fail("Dispatcher is supposed to not fail");
+    $t->diag_exception( $e );
 }
 
 try {
@@ -78,6 +101,23 @@ try {
         '/No dispatch rule matched/',
         'Right error for failure'
     );
+} catch( Exception $e ){
+    $t->fail("Not the exception we were looking for.");
+    $t->diag_exception( $e );
+}
+
+
+try {
+    $dispatcher = new Dispatcher( new TEST_MyFakeClass_B() );
+    $dispatcher->add_rule( new TEST_MyFakeClass_B() );
+    $dispatcher->add_rule( new TEST_MyFakeClass_C() );
+
+    $dispatcher->get_action_for('');
+    $t->pass("Dispatcher not is supposed to throw an exception with a dispatch match");
+
+} catch ( Exception $e ){
+    $t->fail("Dispatcher not is supposed to throw an exception with a dispatch match");
+    $t->diag_exception( $e );
 }
 
 
