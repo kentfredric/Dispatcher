@@ -47,8 +47,15 @@ try {
 }
 
 class TEST_MyFakeClass_B implements Dispatcher_Rule {
+    private $dispatcher;
+    public function set_dispatcher( Dispatcher &$d ){
+        $this->dispatcher = &$d;
+    }
     public function matches( $string ){
         return  false;
+    }
+    public function action( $string ){
+        return false;
     }
 }
 

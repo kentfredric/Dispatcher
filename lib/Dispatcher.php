@@ -28,6 +28,7 @@
     }
 
     public function add_rule( Dispatcher_Rule &$rule ){
+      $rule->set_dispatcher( $this );
       array_push( $this->rules, $rule );
       return $this;
     }
