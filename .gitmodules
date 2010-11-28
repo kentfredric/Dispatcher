@@ -1,0 +1,3 @@
+[submodule "extlib/DevKit"]
+	path = extlib/DevKit
+	url = git://github.com/kentfredric/DevKit.git
