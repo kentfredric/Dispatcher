@@ -11,4 +11,8 @@ class Dispatcher_Action_Fatal implements Dispatcher_Action {
   public function perform( ){ 
     die($this->message);
   }
+
+  public function set_param( array $params ){
+
+  }
 }

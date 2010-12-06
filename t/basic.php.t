@@ -7,15 +7,9 @@ $t = new DevKit_Tester();
 
 try {
     $dispatcher = new Dispatcher();
-    $t->fail("Dispatcher is supposed to throw an exception with 0 args");
-} catch ( Dispatcher_Exception_Construction $e ){
-    $t->pass("Dispatcher is supposed to throw an exception with 0 args");
-    $t->like($e->getMessage(),
-        '/Need to pass one or more/',
-        'Right error for missing args'
-    );
+    $t->pass("Dispatcher is NOT supposed to throw an exception with 0 args");
 } catch ( Exception $e ){
-    $t->fail("Not the exception we were looking for.");
+    $t->fail("Dispatcher is NOT supposed to throw an exception with 0 args");
     $t->diag_exception( $e );
 }
 
@@ -66,6 +60,9 @@ class TEST_Action implements Dispatcher_Action {
     public function perform(){
         global $stuff;
         $stuff = 1;
+    }
+    public function set_param( array $paramdata ){
+
     }
 }
 
