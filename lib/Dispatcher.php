@@ -77,7 +77,7 @@ class Dispatcher {
   #
   #=cut
 
-  public function add_rule( Dispatcher_Rule &$rule ){
+  public function add_rule( Dispatcher_Rule $rule ){
     $rule->set_dispatcher( $this );
     $record = new stdClass();
     $record->rule = &$rule;

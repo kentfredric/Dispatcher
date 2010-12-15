@@ -103,6 +103,6 @@ while(defined( my $line = <$fh>  ) ){
 
 
 #system('texi2dvi', '--tidy','-b',$pod->file('documentation.tex')->relative('.')->stringify );
-system('texi2pdf', '--tidy','-b',$pod->file('documentation.tex')->relative('.')->stringify );
+system('texi2pdf', '--tidy','-o',$pod->file('documentation.pdf')->relative('.')->stringify,'-b',$pod->file('documentation.tex')->relative('.')->stringify, );
 
 

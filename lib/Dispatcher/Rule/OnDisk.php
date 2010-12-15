@@ -1,6 +1,6 @@
 <?php
 
-  class Dispatcher_Rule_Malformed implements Dispatcher_Rule { 
+  class Dispatcher_Rule_OnDisk implements Dispatcher_Rule { 
 
     private $dispatcher;
     private $action;
@@ -11,21 +11,13 @@
 
     public function cleanurl( $url ){
       $bits = explode('/', $url );
-      $newbits = array();
       foreach( $bits as $i => $v ){
         if( empty( $v ) ){
           continue;
         }
-        if( $v === '.' ){ 
-          continue;
-        }
-        if( $v === '..' ){ 
-          array_pop( $newbits );
-          continue;
-        }
-        array_push( $newbits, $v );
+        array_push( $bits, $v );
       }
-      return '/' . implode('/', $newbits );
+      return '/' . implode('/', $bits );
     }
 
     public function matches( $request ){
@@ -42,7 +34,6 @@
 
     public function action( $request ){
       $action = $this->action;
-      /*
       $action->add_param( array( 
         'name' => 'cleanurl',
         'type' => 'url',
@@ -57,11 +48,6 @@
         'type' => '_internal',
         'name' => 'rule',
         'value' => &$this
-      ));*/
-      $action->set_param(array( 
-        'cleanurl' => array( 'value'=> $this->cleanurl( $request ) ),
-        'dispatcher' => array( 'value' => &$this->dispatcher ),
-        'rule' => array( 'value' => &$this ),
       ));
       return $action;
     }

@@ -5,7 +5,7 @@ class Dispatcher_Rule_Empty implements Dispatcher_Rule {
   private $dispatcher;
   private $action;
 
-  public function set_dispatcher( Dispatcher &$d ){ 
+  public function set_dispatcher( Dispatcher $d ){ 
     $this->dispatcher = $d;
   }
 
