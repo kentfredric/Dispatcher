@@ -1,6 +1,6 @@
 <?php
 
-  class Dispatcher_Rule_OnDisk implements Dispatcher_Rule { 
+  class Dispatcher_Rule_OnDiskDir implements Dispatcher_Rule { 
 
     private $dispatcher;
     private $action;
@@ -22,7 +22,8 @@
     }
     public function matches( $request ){
       $fp = $this->_fullpath( $request);
-      if( file_exists( $fp ) && is_file( $fp ) ){ 
+#      print "Testing if exists $fp\n";
+      if( file_exists( $fp ) && is_dir( $fp ) ){ 
         return true;
       }
       return false;

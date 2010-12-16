@@ -21,7 +21,7 @@ class Dispatcher_Action_Redirect implements Dispatcher_Action {
       array_push( $sprintfarray, $this->setparams[$v]['value'] );
     }
     $uri = call_user_func_array('sprintf', $sprintfarray );
-    die( $uri );
+    header("Location: $uri" );
   }
 
   public function set_param( array $params ){

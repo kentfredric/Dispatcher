@@ -10,8 +10,12 @@ class Dispatch {
       return new Dispatcher_Rule_Malformed();
     }
 
-    public static function ondisk(){
-      return new Dispatcher_Rule_OnDisk();
+    public static function ondisk( $root ){
+      return new Dispatcher_Rule_OnDisk($root);
+    }
+
+    public static function ondisk_dir( $root ){ 
+      return new Dispatcher_Rule_OnDiskDir($root);
     }
     public static function token( $tokeno, Dispatch_Matcher $matcher ){
       return new Dispatcher_Rule_Token( $tokeno, $matcher );

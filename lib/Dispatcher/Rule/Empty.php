@@ -27,7 +27,12 @@ class Dispatcher_Rule_Empty implements Dispatcher_Rule {
   }
 
   public function action( $request ){ 
-    return $this->action;
+    $action = $this->action;
+    $action->set_param(array( 
+        'dispatcher' => array( 'value' => &$this->dispatcher ),
+        'rule' => array( 'value' => &$this ),
+      ));
+    return $action;
   }
 
 }
