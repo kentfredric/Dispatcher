@@ -1,19 +1,19 @@
 <?php
 
-class Dispatcher_Rule_Empty implements Dispatcher_Rule { 
+class Dispatcher_Rule_Empty implements Dispatcher_Rule {
 
   private $dispatcher;
   private $action;
 
-  public function set_dispatcher( Dispatcher $d ){ 
+  public function set_dispatcher( Dispatcher $d ){
     $this->dispatcher = $d;
   }
 
-  public function matches( $request ){ 
-    if( is_null( $request ) ){ 
+  public function matches( $request ){
+    if( is_null( $request ) ){
       return true;
     }
-    if ( empty( $request ) ){ 
+    if ( empty( $request ) ){
       return true;
     }
     if ( !isset( $request ) ){
@@ -21,14 +21,14 @@ class Dispatcher_Rule_Empty implements Dispatcher_Rule {
     }
     return false;
   }
-  public function execute( $action ){ 
+  public function execute( $action ){
     $this->action = Dispatcher_Utils::vivify_action( func_get_args() );
     return $this;
   }
 
-  public function action( $request ){ 
+  public function action( $request ){
     $action = $this->action;
-    $action->set_param(array( 
+    $action->set_param(array(
         'dispatcher' => array( 'value' => &$this->dispatcher ),
         'rule' => array( 'value' => &$this ),
       ));

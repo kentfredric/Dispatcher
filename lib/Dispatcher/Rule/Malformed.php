@@ -1,11 +1,11 @@
 <?php
 
-  class Dispatcher_Rule_Malformed implements Dispatcher_Rule { 
+  class Dispatcher_Rule_Malformed implements Dispatcher_Rule {
 
     private $dispatcher;
     private $action;
 
-    public function set_dispatcher( Dispatcher $d ){ 
+    public function set_dispatcher( Dispatcher $d ){
       $this->dispatcher = $d;
     }
 
@@ -16,10 +16,10 @@
         if( empty( $v ) ){
           continue;
         }
-        if( $v === '.' ){ 
+        if( $v === '.' ){
           continue;
         }
-        if( $v === '..' ){ 
+        if( $v === '..' ){
           array_pop( $newbits );
           continue;
         }
@@ -35,7 +35,7 @@
       return true;
     }
 
-    public function execute( $action ){ 
+    public function execute( $action ){
       $this->action = Dispatcher_Utils::vivify_action( func_get_args() );
       return $this;
     }
@@ -43,22 +43,22 @@
     public function action( $request ){
       $action = $this->action;
       /*
-      $action->add_param( array( 
+      $action->add_param( array(
         'name' => 'cleanurl',
         'type' => 'url',
         'value' => $this->cleanurl( $request ),
       ));
-      $action->add_param( array( 
+      $action->add_param( array(
         'type' => '_internal',
         'name' => 'dispatcher',
         'value' => &$this->dispatcher
       ));
-      $action->add_param( array( 
+      $action->add_param( array(
         'type' => '_internal',
         'name' => 'rule',
         'value' => &$this
       ));*/
-      $action->set_param(array( 
+      $action->set_param(array(
         'cleanurl' => array( 'value'=> $this->cleanurl( $request ) ),
         'dispatcher' => array( 'value' => &$this->dispatcher ),
         'rule' => array( 'value' => &$this ),

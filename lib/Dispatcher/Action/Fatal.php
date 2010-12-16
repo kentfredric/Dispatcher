@@ -1,14 +1,14 @@
 <?php
 
-class Dispatcher_Action_Fatal implements Dispatcher_Action { 
+class Dispatcher_Action_Fatal implements Dispatcher_Action {
 
   private $message;
 
-  public function __construct($message){ 
+  public function __construct($message){
     $this->message = $message;
   }
 
-  public function perform( ){ 
+  public function perform( ){
     die($this->message);
   }
 

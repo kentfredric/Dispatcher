@@ -1,8 +1,8 @@
 <?php
 
-class Dispatch { 
+class Dispatch {
 
-    public static function isempty(){ 
+    public static function isempty(){
       return new Dispatcher_Rule_Empty();
     }
 
@@ -14,7 +14,7 @@ class Dispatch {
       return new Dispatcher_Rule_OnDisk($root);
     }
 
-    public static function ondisk_dir( $root ){ 
+    public static function ondisk_dir( $root ){
       return new Dispatcher_Rule_OnDiskDir($root);
     }
     public static function token( $tokeno, Dispatch_Matcher $matcher ){
@@ -24,7 +24,7 @@ class Dispatch {
       return new Dispatcher_Rule_Default();
     }
 
-    #=head1 
+    #=head1
     #
     #   Dispatch::er('OnDisk', $root )->execute();
     #   Dispatch::er('Malformed')->execute();
@@ -37,26 +37,26 @@ class Dispatch {
     #
     # Because some PHP Deity decided that had no application.
     #
-    # Dispatch:: pretty much exists soley as a work-around for this problem. 
+    # Dispatch:: pretty much exists soley as a work-around for this problem.
     #
-    # Dispatch::er is there for the case where the rule you want hasn't been 
-    # added to Dispatch.php yet. 
+    # Dispatch::er is there for the case where the rule you want hasn't been
+    # added to Dispatch.php yet.
     #
-    #   Dispatch::er('Foo',1,2,3,4)->execute() 
+    #   Dispatch::er('Foo',1,2,3,4)->execute()
     #
     # will then do
     #
-    #   $x = new Dispatch_Rule_Foo( 1, 2, 3, 4 );  
+    #   $x = new Dispatch_Rule_Foo( 1, 2, 3, 4 );
     #   $x->execute
     #
     # but without needing to store $x somewhere it can get hurt.
     #
     #=cut
     #
-    public static function er( $rulename ) { 
+    public static function er( $rulename ) {
       return Dispatcher_Utils::vivify_rule( func_get_args() );
     }
-    public static function Action( $name ){ 
+    public static function Action( $name ){
       return Dispatcher_Utils::vivify_action( func_get_args() );
     }
 }

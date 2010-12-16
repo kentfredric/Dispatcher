@@ -1,8 +1,8 @@
 <?php
 
-class Dispatcher_Type_Bool extends Dispatcher_Type_Item { 
+class Dispatcher_Type_Bool extends Dispatcher_Type_Item {
 
-  public function nice_name(){ 
+  public function nice_name(){
     return 'Bool';
   }
 
@@ -10,34 +10,34 @@ class Dispatcher_Type_Bool extends Dispatcher_Type_Item {
     if( !isset( $item ) ){
       return true;
     }
-    if( is_null( $item ) ){ 
+    if( is_null( $item ) ){
       return true;
     }
-    if( !is_scalar( $item ) ){ 
+    if( !is_scalar( $item ) ){
       return false;
     }
     if( is_bool( $item ) ){
       return true;
     }
-    if( "1" === "$item" ){ 
+    if( "1" === "$item" ){
       return true;
     }
     if( "0" === "$item" ){
       return true;
     }
-    if( "" === "$item" ){ 
+    if( "" === "$item" ){
       return true;
     }
   }
 
-  public function can_coerce( Dispatcher_Type $type ){ 
+  public function can_coerce( Dispatcher_Type $type ){
     if( $type instanceof Dispatcher_Type_Bool ){
       return true;
     }
     return false;
   }
 
-  public function coerce( $item ){ 
+  public function coerce( $item ){
     if( $this->isa( $item ) ){
       if( !isset($item) || is_null( $item ) || $item === false || "$item" === "0" || "$item" === "" ){
         return false;

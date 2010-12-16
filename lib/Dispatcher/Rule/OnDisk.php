@@ -1,20 +1,20 @@
 <?php
 
-  class Dispatcher_Rule_OnDisk implements Dispatcher_Rule { 
+  class Dispatcher_Rule_OnDisk implements Dispatcher_Rule {
 
     private $dispatcher;
     private $action;
     private $root;
 
-    public function __construct( $root ){ 
+    public function __construct( $root ){
       $this->root = $root;
     }
 
-    public function set_dispatcher( Dispatcher $d ){ 
+    public function set_dispatcher( Dispatcher $d ){
       $this->dispatcher = $d;
     }
-    
-    public function _fullpath( $request ){ 
+
+    public function _fullpath( $request ){
       $root = preg_replace('/\/?$/','/', $this->root );
       $request = preg_replace('/^\/?/','', $request );
       $fulluri = $root . $request;
@@ -22,21 +22,21 @@
     }
     public function matches( $request ){
       $fp = $this->_fullpath( $request);
-      if( file_exists( $fp ) && is_file( $fp ) ){ 
+      if( file_exists( $fp ) && is_file( $fp ) ){
         return true;
       }
       return false;
     }
 
-    public function execute( $action ){ 
+    public function execute( $action ){
       $this->action = Dispatcher_Utils::vivify_action( func_get_args() );
       return $this;
     }
 
     public function action( $request ){
       $action = $this->action;
-      $action->set_param(array(  
-        'dispatcher' => &$this->dispatcher, 
+      $action->set_param(array(
+        'dispatcher' => &$this->dispatcher,
         'rule' => &$this,
         'fullpath' => $this->_fullpath( $request )
       ));

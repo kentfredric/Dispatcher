@@ -1,15 +1,15 @@
 <?php
 
-class Dispatcher_Action_Debug implements Dispatcher_Action { 
+class Dispatcher_Action_Debug implements Dispatcher_Action {
 
   private $message;
 
-  public function __construct(){ 
+  public function __construct(){
     $args = func_get_args();
     $this->constructor_args = $args;
   }
 
-  public function perform( ){ 
+  public function perform( ){
     $args = func_get_args();
     $this->perform_args = $args;
     header("Content-Type: text/plain");

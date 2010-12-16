@@ -1,8 +1,8 @@
 <?php
 
-class Dispatcher_Type_Defined extends Dispatcher_Type_Item { 
+class Dispatcher_Type_Defined extends Dispatcher_Type_Item {
 
-  public function nice_name(){ 
+  public function nice_name(){
     return 'Defined';
   }
 
@@ -13,11 +13,11 @@ class Dispatcher_Type_Defined extends Dispatcher_Type_Item {
     return true;
   }
 
-  public function can_coerce( Dispatcher_Type $type ){ 
+  public function can_coerce( Dispatcher_Type $type ){
     return false;
   }
 
-  public function coerce( $item ){ 
+  public function coerce( $item ){
     throw new Dispatcher_Exception_Type("Cannot coerce to " . $this->nice_name);
   }
 

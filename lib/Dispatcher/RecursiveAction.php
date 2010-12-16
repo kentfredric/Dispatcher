@@ -1,8 +1,8 @@
 <?php
 
-#=head1 NAME 
+#=head1 NAME
 #
-# Dispatcher_RecursiveAction 
+# Dispatcher_RecursiveAction
 #
 #=cut
 

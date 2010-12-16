@@ -7,7 +7,7 @@
 # Recommended use is in conjuiction with DevKit's Autoload function in your class.
 #
 # In your Top Level PHP script:
-#   
+#
 #   if( !defined( 'DEVKIT_AUTOLOAD' ) ){
 #     require_once(realpath(dirname(__FILE__)) . '/../path/to/DevKit/Autoload.php' );
 #   }
@@ -21,7 +21,7 @@
 #
 #=cut
 
-if( !defined( 'DEVKIT_AUTOLOAD' ) ){ 
+if( !defined( 'DEVKIT_AUTOLOAD' ) ){
   require_once(realpath(dirname(__FILE__)). '/../extlib/DevKit/lib/DevKit/Autoload.php' );
 }
 DevKit_Autoload::setprefix('Dispatcher', realpath(dirname(__FILE__)) . '/Dispatcher' );
@@ -36,15 +36,15 @@ class Dispatcher {
 
   #=head3 new Dispatcher
   #
-  #   $dispatcher = new Dispatcher( 
+  #   $dispatcher = new Dispatcher(
   #      Dispatch::empty()->execute( $action ),
-  #      ... more disptachers ... 
+  #      ... more disptachers ...
   #      Dispatch::default()->execute( $action ),
   #   );
   #
   # This generates a new Dispatcher Object with a top-to-bottom list of rules/instructions to execute.
   # The dispatch tree is executed Once and Once only so this can be taken like a syntactic tree of complex
-  # if() statements. 
+  # if() statements.
   #
   #=cut
 
@@ -55,12 +55,12 @@ class Dispatcher {
     foreach ( $args as $i => &$v ){
       if( is_array( $v ) ){
         $execute = false;
-        if( array_key_exists('execute', $v ) ){ 
+        if( array_key_exists('execute', $v ) ){
           $execute = $v['execute'];
           unset( $v['execute'] );
         }
         $v = Dispatcher_Utils::vivify_rule($v);
-        if( $execute ){ 
+        if( $execute ){
           call_user_func_array(array($v, 'execute'), $execute );
         }
       }
@@ -98,17 +98,17 @@ class Dispatcher {
 
   #=head3 get_action_for
   #
-  # This method executes the dispatch tree and traverses it doing rule matching. 
+  # This method executes the dispatch tree and traverses it doing rule matching.
   #
   # $action = $dispatcher->get_action_for( '/foo/bar/baz' );
-  # $action->perform(); 
+  # $action->perform();
   #
   #=cut
 
   public function get_action_for( $request = '' ){
 
     if( count($this->rules) < 1 ){
-      Dispatch_Exception::dispatch("Dispatcher has no rules, pass one during construction or add it" . 
+      Dispatch_Exception::dispatch("Dispatcher has no rules, pass one during construction or add it" .
         "with ->add_rule");
     }
 
@@ -117,7 +117,7 @@ class Dispatcher {
         continue;
       }
       $result = $v->rule->action( $request );
-      if( $result instanceof Dispatcher_Action ){ 
+      if( $result instanceof Dispatcher_Action ){
         return $result;
       }
       Dispatch_Exception::dispatch("Returned from Dispatcher_Rule->action() was not a Dispatcher_Action");
@@ -127,7 +127,7 @@ class Dispatcher {
 
   #=head3 get_recursive_action_for
   #
-  # This is the heart of any deep recursive dispatching. 
+  # This is the heart of any deep recursive dispatching.
   #
   # Identical to get_action_for on non-recursive matches,
   # but does deep recursion on all items that are 'recursive' actions until
@@ -135,7 +135,7 @@ class Dispatcher {
   #
   #=cut
 
-  public function get_recursive_action_for( $request = '' ){ 
+  public function get_recursive_action_for( $request = '' ){
 
     $myrule = $this->get_action_for( $request );
 
@@ -145,7 +145,7 @@ class Dispatcher {
 
     $subdispatch = $myrule->perform( $request );
 
-    if(!( $subdispatch instanceof Dispatcher_DispatchResult ) ){ 
+    if(!( $subdispatch instanceof Dispatcher_DispatchResult ) ){
       Dispatcher_Exception::subdispatch("Item returned from 'perform' on recursive dispatchers must be a Dispatcher_DispatchResult");
     }
 
