@@ -53,6 +53,17 @@ class Dispatcher {
     $this->rules = array();
 
     foreach ( $args as $i => &$v ){
+      if( is_array( $v ) ){
+        $execute = false;
+        if( array_key_exists('execute', $v ) ){ 
+          $execute = $v['execute'];
+          unset( $v['execute'] );
+        }
+        $v = Dispatcher_Utils::vivify_rule($v);
+        if( $execute ){ 
+          call_user_func_array(array($v, 'execute'), $execute );
+        }
+      }
       if( !is_object( $v ) ){
         Dispatch_Exception::construction("Got something that is not an object for argument $i");
       }

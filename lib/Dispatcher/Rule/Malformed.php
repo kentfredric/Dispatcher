@@ -36,7 +36,7 @@
     }
 
     public function execute( $action ){ 
-      $this->action = &$action;
+      $this->action = Dispatcher_Utils::vivify_action( func_get_args() );
       return $this;
     }
 
