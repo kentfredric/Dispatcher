@@ -21,8 +21,8 @@ abstract class Dispatcher_Rule_Base_Basic implements Dispatcher_Rule {
     }
     $action->set_param('rule_class', array( 'value' => get_class( $this )  ) );
     $action->set_param('request' , array( 'value' => $request ) );
-#    $action->set_param( 'dispatcher' , array( 'value' => &$this->dispatcher ));
-#    $action->set_param( 'rule', array( 'value' => $this ) );
+    $action->set_param( 'dispatcher' , array( 'value' => &$this->dispatcher ));
+    $action->set_param( 'rule', array( 'value' => $this ) );
     return $action;
   }
 

@@ -6,7 +6,7 @@ require_once(dirname(__FILE__) . '/../../lib/Dispatcher.php' );
 $t = new DevKit_Tester();
 
 $rule = $t->new_lives( 'rule + no args ',
-    'Dispatcher_Rule_Empty', array( )
+    'Dispatcher_Rule_Default', array( )
 );
 $dispatcher = $t->new_lives( 'dispatcher + no args',
     'Dispatcher', array( )
@@ -25,8 +25,8 @@ $t->method_call_lives( ' set the execute action',
 );
 
 
-$t->is( $rule->matches(''), true, 'Empty String matches' );
-$t->isnt( $rule->matches('asdasdasd'), true, 'NonEmpty string doesn\'t match');
+$t->is( $rule->matches('asded'), true, 'Empty String matches' );
+$t->is( $rule->matches('asdasdasd'), true, 'NonEmpty string matches');
 
 $got_action = $t->method_call_lives( 'get action',
     $rule, 'action', array('')

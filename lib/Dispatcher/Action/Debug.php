@@ -3,6 +3,9 @@
 class Dispatcher_Action_Debug implements Dispatcher_Action {
 
   private $message;
+  public $set_param_arg;
+  public $perform_args;
+  public $constructor_args;
 
   public function __construct(){
     $args = func_get_args();
