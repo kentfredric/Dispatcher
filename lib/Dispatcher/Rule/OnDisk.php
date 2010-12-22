@@ -1,10 +1,7 @@
 <?php
 
-  class Dispatcher_Rule_OnDisk implements Dispatcher_Rule {
+  class Dispatcher_Rule_OnDisk extends Dispatcher_Rule_Base_Basic {
 
-    private $dispatcher;
-    private $action;
-    private $root;
     private $document_root;
 
     public function __construct( array $config ){
@@ -14,12 +11,8 @@
       ));
     }
 
-    public function set_dispatcher( Dispatcher $d ){
-      $this->dispatcher = $d;
-    }
-
     public function _fullpath( $request ){
-      $root = preg_replace('/\/?$/','/', $this->root );
+      $root = preg_replace('/\/?$/','/', $this->document_root );
       $request = preg_replace('/^\/?/','', $request );
       $fulluri = $root . $request;
       return $fulluri;
@@ -33,18 +26,11 @@
       return false;
     }
 
-    public function execute( $action ){
-      $this->action = Dispatcher_Utils::vivify_action( func_get_args() );
-      return $this;
-    }
 
     public function action( $request ){
-      $action = $this->action;
-      $action->set_param(array(
-        'dispatcher' => &$this->dispatcher,
-        'rule' => &$this,
-        'fullpath' => $this->_fullpath( $request )
-      ));
+      $action = parent::action($request);
+      $action->set_param('fullpath', array( 'value' => $this->_fullpath( $request ) ) );
       return $action;
     }
+
   }
