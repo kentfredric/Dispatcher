@@ -45,7 +45,7 @@ try {
 
 class TEST_MyFakeClass_B implements Dispatcher_Rule {
     private $dispatcher;
-    public function set_dispatcher( Dispatcher &$d ){
+    public function set_dispatcher( Dispatcher $d ){
         $this->dispatcher = &$d;
     }
     public function matches( $string ){
@@ -61,14 +61,14 @@ class TEST_Action implements Dispatcher_Action {
         global $stuff;
         $stuff = 1;
     }
-    public function set_param( array $paramdata ){
+    public function set_param( $name, array $paramdata ){
 
     }
 }
 
 class TEST_MyFakeClass_C implements Dispatcher_Rule {
     private $dispatcher;
-    public function set_dispatcher( Dispatcher &$d ){
+    public function set_dispatcher( Dispatcher $d ){
         $this->dispatcher = &$d;
     }
     public function matches( $string ){

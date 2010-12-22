@@ -59,4 +59,7 @@ class Dispatch {
     public static function Action( $name ){
       return Dispatcher_Utils::vivify_action( func_get_args() );
     }
+    public static function Exception( $name ){ 
+      throw Dispatcher_Utils::vivify_exception( func_get_args() );
+    }
 }

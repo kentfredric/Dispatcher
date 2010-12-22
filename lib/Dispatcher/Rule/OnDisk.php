@@ -5,9 +5,13 @@
     private $dispatcher;
     private $action;
     private $root;
+    private $document_root;
 
-    public function __construct( $root ){
-      $this->root = $root;
+    public function __construct( array $config ){
+      $this->document_root = Dispatcher_Utils::extract_param( $config, array( 
+        'name' => 'document_root',
+        'required' => true,
+      ));
     }
 
     public function set_dispatcher( Dispatcher $d ){
@@ -20,6 +24,7 @@
       $fulluri = $root . $request;
       return $fulluri;
     }
+
     public function matches( $request ){
       $fp = $this->_fullpath( $request);
       if( file_exists( $fp ) && is_file( $fp ) ){

@@ -1,17 +1,11 @@
 <?php
 
-  class Dispatcher_Rule_OnDiskDir implements Dispatcher_Rule {
+  class Dispatcher_Rule_OnDiskDir extends Dispatcher_Rule_Base_Basic {
 
-    private $dispatcher;
-    private $action;
     private $root;
 
     public function __construct( $root ){
       $this->root = $root;
-    }
-
-    public function set_dispatcher( Dispatcher $d ){
-      $this->dispatcher = $d;
     }
 
     public function _fullpath( $request ){
@@ -29,18 +23,9 @@
       return false;
     }
 
-    public function execute( $action ){
-      $this->action = Dispatcher_Utils::vivify_action(func_get_args());
-      return $this;
-    }
-
     public function action( $request ){
-      $action = $this->action;
-      $action->set_param(array(
-        'dispatcher' => &$this->dispatcher,
-        'rule' => &$this,
-        'fullpath' => $this->_fullpath( $request )
-      ));
+      $action = parent::action( $request );
+      $action->set_param( 'fullpath', array( 'value' => $this->_fullpath( $request ) ) );
       return $action;
     }
   }

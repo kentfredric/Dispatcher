@@ -48,5 +48,5 @@ interface Dispatcher_Action {
   #
   #=cut
   #
-  public function set_param( array $paramdata );
+  public function set_param( $name,  array $paramdata );
 }

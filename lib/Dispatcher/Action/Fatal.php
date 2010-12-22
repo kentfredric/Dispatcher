@@ -12,7 +12,7 @@ class Dispatcher_Action_Fatal implements Dispatcher_Action {
     die($this->message);
   }
 
-  public function set_param( array $params ){
+  public function set_param( $name, array $params ){
 
   }
 }

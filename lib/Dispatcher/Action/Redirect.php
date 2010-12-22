@@ -24,7 +24,7 @@ class Dispatcher_Action_Redirect implements Dispatcher_Action {
     header("Location: $uri" );
   }
 
-  public function set_param( array $params ){
-    $this->setparams = $params;
+  public function set_param( $name, array $params ){
+    $this->setparams[$name] = $params;
   }
 }

@@ -77,7 +77,7 @@ class Dispatcher_Action_StaticFile implements Dispatcher_Action {
     return $this->_deliver_file( $filename, $type );
   }
 
-  public function set_param( array $params ){
-    $this->setparams = $params;
+  public function set_param( $name, array $params ){
+    $this->setparams[$name]  = $params;
   }
 }

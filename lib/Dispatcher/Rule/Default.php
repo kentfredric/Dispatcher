@@ -1,29 +1,9 @@
 <?php
 
-class Dispatcher_Rule_Default implements Dispatcher_Rule {
-
-  private $dispatcher;
-  private $action;
-
-  public function set_dispatcher( Dispatcher $d ){
-    $this->dispatcher = $d;
-  }
+class Dispatcher_Rule_Default extends Dispatcher_Rule_Base_Basic {
 
   public function matches( $request ){
     return true;
   }
 
-  public function execute( $action ){
-    $this->action = Dispatcher_Utils::vivify_action( func_get_args() ) ;
-    return $this;
-  }
-
-  public function action( $request ){
-    $action = $this->action;
-    $action->set_param(array(
-        'dispatcher' => array( 'value' => &$this->dispatcher ),
-        'rule' => array( 'value' => &$this ),
-      ));
-    return $action;
-  }
 }

@@ -40,7 +40,7 @@ class Dispatcher_Action_SimpleDirListing implements Dispatcher_Action {
     return $this->_list_dir( $dir );
   }
 
-  public function set_param( array $params ){
-    $this->setparams = $params;
+  public function set_param( $name, array $params ){
+    $this->setparams[$name] = $params;
   }
 }

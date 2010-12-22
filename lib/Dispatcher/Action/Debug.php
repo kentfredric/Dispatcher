@@ -17,8 +17,9 @@ class Dispatcher_Action_Debug implements Dispatcher_Action {
     die();
   }
 
-  public function set_param( array $params ){
+  public function set_param( $name , array $params ){
     $args = func_get_args();
-    $this->set_param_args = $args;
+    array_shift( $args );
+    $this->set_param_arg[$name] = $args;
   }
 }
